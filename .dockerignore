@@ -1,0 +1,9 @@
+# Ignorer le dossier des dépendances locales
+node_modules
+# Ignorer le dossier de build local (sera généré dans l'image)
+dist
+# Fichiers de configuration inutiles pour l'image finale
+.git
+.gitignore
+npm-debug.log
+.vscode

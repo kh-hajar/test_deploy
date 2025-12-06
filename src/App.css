@@ -1,0 +1,97 @@
+/*
+ * 1. Styles de Base : Couvre toute la page et assure un centrage parfait.
+ */
+.App {
+  /* Assure que le conteneur prend toute la hauteur de la fenêtre visible */
+  min-height: 100vh;
+  /* Centrage FLEXBOX pour aligner la carte au milieu */
+  display: flex;
+  justify-content: center; /* Centrage horizontal */
+  align-items: center;    /* Centrage vertical */
+  text-align: center;
+
+  /* Fond Nude/Soft */
+  background-color: #fcfcfc; /* Un blanc très doux et presque imperceptible */
+  color: #212121; /* Noir très sombre pour la lisibilité */
+  font-family: 'Montserrat', sans-serif; /* Police élégante et moderne */
+  padding: 20px;
+}
+
+/*
+ * 2. Style de la Carte de Motivation : Élégance et Impact.
+ */
+.motivation-card {
+  /* Le centrage est déjà géré par .App, mais nous ajoutons des styles visuels */
+  background: white;
+  padding: 60px 80px; /* Plus d'espace intérieur pour une sensation premium */
+  border-radius: 20px;
+  max-width: 750px;
+  width: 100%;
+  
+  /* Ombre plus nette et profonde pour donner du relief */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
+  
+  /* Ajout d'une légère bordure colorée (ou 'ring') pour une touche de couleur */
+  border: 3px solid transparent;
+  border-image: linear-gradient(45deg, #FF6F91, #FF9671, #FFC75F) 1;
+  
+  /* Animation d'entrée raffinée */
+  animation: slideInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/*
+ * 3. Styles Typographiques : Utilisation de couleurs 'Pop' et contraste.
+ */
+.main-title {
+  font-size: 3em;
+  font-weight: 800; /* Extra gras pour l'impact */
+  color: #3b3be1; /* Bleu électrique percutant */
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  /* Légère ombre portée sur le texte */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.5em;
+  color: #6a6a6a; /* Gris neutre pour le contraste */
+  margin-bottom: 30px;
+  font-style: normal; /* Retrait de l'italique pour plus de sobriété */
+  font-weight: 500;
+}
+
+.success-message {
+  font-size: 1.5em;
+  color: #000000; /* Noir total pour le message clé */
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.success-message strong {
+    /* Mise en valeur du succès final */
+    color: #FF6F91; /* Rose vif pour les mots importants */
+    font-weight: 900;
+    display: block; /* Force le succès sur une nouvelle ligne */
+    margin-top: 10px;
+}
+
+/* Confetti et éléments d'ambiance */
+.confetti {
+  font-size: 3em;
+  margin-top: 40px;
+  animation: bounce 2s infinite; /* Nouvelle animation amusante */
+}
+
+/* * 4. Keyframes (Animations)
+ */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-15px);}
+  60% {transform: translateY(-7px);}
+}
