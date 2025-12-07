@@ -42,10 +42,10 @@ jobs:
 
       - name: ACR Login via AZ CLI
         # Cette commande utilise les identifiants du Service Principal déjà connecté
-        run: az acr login --name hajarregistrytest01
+        run: az acr login --name hajarregistrytest01.azurecr.io
         
       - name: Push to Registry
-        run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
+        run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{ env.DCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
         
       # 5. Déploiement vers Azure App Service
       - name: Deploy to Azure Web App
