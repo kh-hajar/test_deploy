@@ -3,7 +3,7 @@ name: Deploy Dockerized App to Azure
 on:
   push:
     branches:
-      - main # Le déploiement se fait sur la branche principale
+      - master # Le déploiement se fait sur la branche principale
 
 env:
   # VOS RESSOURCES AZURE
