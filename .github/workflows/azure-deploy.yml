@@ -9,6 +9,7 @@ env:
   # VOS RESSOURCES AZURE
   AZURE_WEBAPP_NAME: Hajar-docker-test        # Le nom de votre App Service
   ACR_LOGIN_SERVER: hajarregistrytest01   # Le nom de votre Container Registry
+  ACR_LOGIN_SERVER_FQDN: hajarregistrytest01.azurecr.io # <-- NOUVELLE VARIABLE FQDN
   DOCKER_IMAGE_REPO_NAME: hajar-docker-test               # Nom de l'image (doit correspondre au nom de l'App Service)
   IMAGE_TAG: ${{ github.sha }}                # Utilisation du Hash de commit pour un tag unique
 
@@ -28,7 +29,7 @@ jobs:
       # 3. Construction de l'Image Docker
       - name: Build Docker Image
         # Construit l'image et lui donne le tag complet pour l'ACR
-        run: docker build . --tag ${{ env.ACR_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
+        run: docker build . --tag ${{ env.ACR_LOGIN_SERVER_FQDN }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
 
       # 4. Connexion et Pousser l'Image vers ACR
 
@@ -45,7 +46,7 @@ jobs:
         run: az acr login --name ${{ env.ACR_LOGIN_SERVER }}
         
       - name: Push to Registry
-        run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
+        run: docker push ${{ env.ACR_LOGIN_SERVER_FQDN }}/${{ env.DCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
         
       # 5. Déploiement vers Azure App Service
       - name: Deploy to Azure Web App
@@ -53,4 +54,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           # Déploie l'image que nous venons de créer
-          images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
+          images: ${{ env.ACR_LOGIN_SERVER_FQDN }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
