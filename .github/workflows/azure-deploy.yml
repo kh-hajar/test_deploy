@@ -7,7 +7,7 @@ on:
 
 env:
   # VOS RESSOURCES AZURE
-          # Le nom de votre App Service
+  AZURE_WEBAPP_NAME: Hajar-docker-test        # Le nom de votre App Service
   ACR_LOGIN_SERVER: hajarregistrytest01.azurecr.io # Le nom de votre Container Registry
   DOCKER_IMAGE_REPO_NAME: hajar-docker-test               # Nom de l'image (doit correspondre au nom de l'App Service)
   IMAGE_TAG: ${{ github.sha }}                # Utilisation du Hash de commit pour un tag unique
@@ -31,13 +31,19 @@ jobs:
         run: docker build . --tag ${{ env.ACR_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
 
       # 4. Connexion et Pousser l'Image vers ACR
-      - name: Push Docker Image to ACR
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.ACR_LOGIN_SERVER }}
+
+    #  - name: Push Docker Image to ACR
+    #   uses: docker/login-action@v3
+    #    with:
+    #      registry: ${{ env.ACR_LOGIN_SERVER }}
           # Azure s'authentifie automatiquement avec les AZURE_CREDENTIALS
-          username: ${{ secrets.AZURE_CLIENT_ID }} 
-          password: ${{ secrets.AZURE_CLIENT_SECRET }} 
+    #      username: ${{ secrets.AZURE_CLIENT_ID }} 
+    #      password: ${{ secrets.AZURE_CLIENT_SECRET }} 
+
+      - name: ACR Login via AZ CLI
+        # Cette commande utilise les identifiants du Service Principal déjà connecté
+        run: az acr login --name ${{ env.ACR_LOGIN_SERVER }}
+        
       - name: Push to Registry
         run: docker push ${{ env.ACR_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPO_NAME }}:${{ env.IMAGE_TAG }}
         
